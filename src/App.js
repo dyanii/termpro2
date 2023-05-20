@@ -1,25 +1,71 @@
-import logo from './logo.svg';
+import React from 'react';
+import Todo from './Todo';
+import AddTodo from './AddTodo.js';
+import { Paper, List, Container } from "@material-ui/core";
 import './App.css';
+import { call } from "./service/ApiService"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      items :[],
+    };
+  }
+
+  componentDidMount() {
+    call("/book", "GET", null).then((response)=>
+      this.setState({items: response.data}));
+  }
+
+  add = (item) => {
+    call("/book", "POST", item).then((response)=>
+      this.setState({items: response.data}));
+  };
+
+  retrieve = (item) => {
+    call("/book", "GET", item).then((response) =>
+      this.setState({items: response.data}));
+  }
+
+  delete = (item) => {
+    call("/book", "DELETE", item).then((response)=>
+      this.setState({items: response.data}));
+  };
+
+  update = (item) => {
+    call("/book", "PUT", item).then((response) =>
+      this.setState({items: response.data}));
+  };
+
+
+  render() {
+    var todoItems = this.state.items.length > 0 && (
+      <Paper style={{margin:16}}>
+        <List>
+          {this.state.items.map((item, idx) => (
+            <Todo 
+            item={item} 
+            key={item.id}
+            retrieve={this.retrieve}
+            delete={this.delete}
+            update={this.update}
+             />
+          ))}
+        </List>
+      </Paper>
+    );
+    
+
+    return (
+      <div className='App'>
+        <Container maxWidth="md">
+        <AddTodo add={this.add} />
+          <div className='TodoList'>{todoItems}</div>
+        </Container>
+      </div>
+    );
+  }
 }
 
 export default App;
