@@ -8,10 +8,14 @@ class Todo extends React.Component {
         this.state= {item: props.item, readOnly: true};
         this.delete = props.delete;
         this.update = props.update;
+        this.search = props.search;
     };
 
-    deleteEventHandler = () => {
-        this.delete(this.state.item);
+    deleteEventHandler = (e) => {
+        if (e.title === this.state.item.title) {
+            this.delete(this.state.item);
+        }
+        
     };
 
     offReadOnlyMode = () => {
@@ -46,7 +50,6 @@ class Todo extends React.Component {
         }
     };
 
-
     render() {
         const item= this.state.item;
         return (
@@ -65,7 +68,6 @@ class Todo extends React.Component {
                     onChange={this.editEventHandler}
                     onKeyPress= {this.enterKeyEventHandler}
                     />
-                    
                     <InputBase
                     inputProps ={{"aria-label": "naked",
                                 readOnly: this.state.readOnly}}
@@ -105,8 +107,9 @@ class Todo extends React.Component {
 
             </ListItem>
             
+            
         );
-        }
+    }
 }
 
 export default Todo;

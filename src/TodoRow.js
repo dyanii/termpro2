@@ -1,55 +1,81 @@
-/*
-import React from "react";
-import Todo from "./Todo";
-import AddTodo from './AddTodo.js';
-import { Paper, List, Container } from "@material-ui/core";
-import './App.css';
+import React from 'react';
+import Todo from './Todo';
+import AddTodo from './AddTodo';
 import { call } from "./service/ApiService"
 
 class TodoRow extends React.Component {
-    constructor(props){
-      super(props);
-      this.state = {
-        items :[],
-      };
-    }
+  constructor(props){
+    super(props);
+    this.state = { items: props.item,
+    };
+  }
 
-    render() {
-        var todoRows = this.state.items.map((item) => (
-          <TodoRow
-            key={item.id}
-            item={item}
-            delete={this.delete}
-            update={this.update}
-            />
-        ));
+  delete = (item) => {
+    call("/book", "DELETE", item).then((response)=>
+      this.setState({items: response.data}));
+  };
 
-        return (
-          <div className="App">
-            <h1>Book List</h1>
-            <TodoForm add={this.add} />
-            {this.state.items.length > 0 && (
-              <Paper style={{ margin: 16 }}>
-                <Table>
-                  <caption> Todo List</caption>
-                  <thread>
-                    <tr>
-                      <th>ID</th>
-                      <th>Title</th>
-                      <th>Author</th>
-                      <th>Publisher</th>
-                    </tr>
-                  </thread>
-                  <tbody>{todoRows}</tbody>
-                </Table>
-              </Paper>
-            )}
-          </div>
-        );
-    }
+  render() {
+    var todoRows = this.state.items.length > 0 && (
+      
+      <table>
+        <thead></thead>
+        <tbody>
+          <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>author</th>
+            <th>publisher</th>
+            <th>delete</th>
+          </tr>
+          <td>
+            {this.state.items.map((item) => (
+              <Todo id={item.id} />
+            ))}
+          </td>
+          <td>
+            {this.state.items.map((item) => (
+              <Todo title={item.title} />
+            ))}
+          </td>
+          <td>
+            {this.state.items.map((item) => (
+              <Todo author={item.author} />
+            ))}
+          </td>
+          <td>
+            {this.state.items.map((item) => (
+              <Todo publisher={item.publisher} />
+            ))}
+          </td>
+          <td>
+            {this.state.items.map((item) => (
+              <Todo userId={item.userId} />
+            ))}
+          </td>
+          <td>
+            {this.state.items.map((item) => (
+              <button>
+                delete
+                <Todo delete={this.delete} />
+              </button>
 
-}
+            ))}
+          </td>
+        
+        </tbody>
+      </table>
+          
+    );
+
+
+  return (
+    <div className='Todo'>
+      <AddTodo add={this.add} />
+          <div className='TodoRow'>{todoRows}</div>
+    </div>
+    );
+  };
+};
 
 export default TodoRow;
-
-*/

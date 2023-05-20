@@ -6,7 +6,7 @@ class AddTodo extends React.Component {
         super(props);
         this.state ={ item: {title:"", author:"", publisher:"", userId:""} };
         this.add = props.add;
-        this.retrieve = props.retrieve;
+        this.search = props.search;
     }
 
     onInputChange = (e) => {
@@ -42,10 +42,12 @@ class AddTodo extends React.Component {
         this.setState({item: {title: "", author:"", publisher:"", userId:""}});
     }
 
-    onButtonSearch = (e) => {
-        this.retrieve(this.state.item);
-        this.setState({item: {title:""}});
-    }
+    onSearchHandler = (e) => {
+        const thisItem = this.state.item;
+        thisItem.title = e.target.value;
+        this.setState({item: thisItem});
+        console.log(thisItem);
+    };
     
 
     enterKeyEventHandler = (e) => {
@@ -106,17 +108,6 @@ class AddTodo extends React.Component {
                             제품 추가
                         </Button>
                     </Grid>
-
-                    <Grid xs={2} md={1} item>
-                        <Button
-                        fullWidth
-                        color="secondary"
-                        variant="outlined"
-                        onClick={this.onButtonSearch}>
-                            제품 검색
-                        </Button>
-                    </Grid>
-
                     <Grid xs={2} md={1} item>
                         <Button
                         fullWidth
@@ -126,9 +117,18 @@ class AddTodo extends React.Component {
                             제품 수정
                         </Button>
                     </Grid>
-
+                    <Grid xs={2} md={1} item>
+                        <Button
+                        fullWidth
+                        color="secondary"
+                        variant="outlined"
+                        onClick={this.onSearchHandler}>
+                            제품 검색
+                        </Button>
+                    </Grid>
                 </Grid>
             </Paper>
+            
         );
 
     }

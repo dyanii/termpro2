@@ -3,7 +3,7 @@ import Todo from './Todo';
 import AddTodo from './AddTodo.js';
 import { Paper, List, Container } from "@material-ui/core";
 import './App.css';
-import { call } from "./service/ApiService"
+import { call } from "./service/ApiService";
 
 class App extends React.Component {
   constructor(props){
@@ -23,11 +23,6 @@ class App extends React.Component {
       this.setState({items: response.data}));
   };
 
-  retrieve = (item) => {
-    call("/book", "GET", item).then((response) =>
-      this.setState({items: response.data}));
-  }
-
   delete = (item) => {
     call("/book", "DELETE", item).then((response)=>
       this.setState({items: response.data}));
@@ -36,6 +31,11 @@ class App extends React.Component {
   update = (item) => {
     call("/book", "PUT", item).then((response) =>
       this.setState({items: response.data}));
+  };
+
+  search = (item) => {
+    call("/book", "GET", item).then((response)=> 
+      this.setState({item: response.data}));
   };
 
 
@@ -47,9 +47,9 @@ class App extends React.Component {
             <Todo 
             item={item} 
             key={item.id}
-            retrieve={this.retrieve}
             delete={this.delete}
             update={this.update}
+            search={this.search}
              />
           ))}
         </List>
@@ -58,12 +58,16 @@ class App extends React.Component {
     
 
     return (
-      <div className='App'>
+      <div>
+        <div className='App'>
         <Container maxWidth="md">
         <AddTodo add={this.add} />
           <div className='TodoList'>{todoItems}</div>
         </Container>
+        </div>
+        
       </div>
+      
     );
   }
 }
