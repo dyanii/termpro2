@@ -1,6 +1,6 @@
 import React from "react";
 import { ListItem, ListItemText, InputBase, ListItemSecondaryAction, IconButton } from "@material-ui/core";
-import {DeleteOutlined} from "@material-ui/icons";
+import { DeleteOutlined } from "@material-ui/icons";
 
 class Todo extends React.Component {
     constructor(props) {
@@ -11,12 +11,9 @@ class Todo extends React.Component {
         this.search = props.search;
     };
 
-    deleteEventHandler = (e) => {
-        if (e.title === this.state.item.title) {
-            this.delete(this.state.item);
-        }
-        
-    };
+    deleteEventHandler = () => {
+        this.delete(this.state.item);
+    }
 
     offReadOnlyMode = () => {
         //console.log("Event!", this.state.readOnly)
@@ -59,7 +56,7 @@ class Todo extends React.Component {
                     inputProps ={{"aria-label": "naked",
                                 readOnly: this.state.readOnly}}
                     onClick={this.offReadOnlyMode}
-                    type="title"
+                    type="text"
                     id={item.id}
                     name={item.id}
                     value={item.title}
@@ -72,7 +69,7 @@ class Todo extends React.Component {
                     inputProps ={{"aria-label": "naked",
                                 readOnly: this.state.readOnly}}
                     onClick={this.offReadOnlyMode}
-                    type="author"
+                    type="text"
                     id={item.id}
                     name={item.id}
                     value={item.author}
@@ -85,7 +82,7 @@ class Todo extends React.Component {
                     inputProps ={{"aria-label": "naked",
                                 readOnly: this.state.readOnly}}
                     onClick={this.offReadOnlyMode}
-                    type="publisher"
+                    type="text"
                     id={item.id}
                     name={item.id}
                     value={item.publisher}
@@ -96,11 +93,10 @@ class Todo extends React.Component {
                     />
                     
                 </ListItemText>
-
                 <ListItemSecondaryAction>
-                    <IconButton 
-                        aria-label= "Delete Todo"
-                        onClick={this.deleteEventHandler}>
+                    <IconButton
+                    aria-label="Delete Todo"
+                    onClick={this.deleteEventHandler}>
                         <DeleteOutlined />
                     </IconButton>
                 </ListItemSecondaryAction>

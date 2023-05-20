@@ -7,6 +7,8 @@ class AddTodo extends React.Component {
         this.state ={ item: {title:"", author:"", publisher:"", userId:""} };
         this.add = props.add;
         this.search = props.search;
+        this.delete = props.delete;
+        this.update = props.update;
     }
 
     onInputChange = (e) => {
@@ -42,11 +44,9 @@ class AddTodo extends React.Component {
         this.setState({item: {title: "", author:"", publisher:"", userId:""}});
     }
 
-    onSearchHandler = (e) => {
-        const thisItem = this.state.item;
-        thisItem.title = e.target.value;
-        this.setState({item: thisItem});
-        console.log(thisItem);
+    onSearchHandler = (searchText) => {
+        const searchItem = { title: searchText };
+        this.search(searchItem);
     };
     
 
@@ -59,7 +59,8 @@ class AddTodo extends React.Component {
     editEventHandler = (e) => {
         const thisItem = this.state.item;
         thisItem.title = e.target.value;
-        this.setState({item: thisItem});
+        this.setState({ item: thisItem })
+        
     };
 
     render() {
@@ -122,8 +123,17 @@ class AddTodo extends React.Component {
                         fullWidth
                         color="secondary"
                         variant="outlined"
-                        onClick={this.onSearchHandler}>
+                        onChange={(e) => this.onSearchHandler(e.target.value)}>
                             제품 검색
+                        </Button>
+                    </Grid>
+                    <Grid xs={2} md={1} item>
+                        <Button
+                        fullWidth
+                        color="secondary"
+                        variant="outlined"
+                        onClick={this.deleteEventHandler}>
+                            제품 삭제
                         </Button>
                     </Grid>
                 </Grid>

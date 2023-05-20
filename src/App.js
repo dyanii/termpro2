@@ -65,7 +65,6 @@ class App extends React.Component {
           <div className='TodoList'>{todoItems}</div>
         </Container>
         </div>
-        
       </div>
       
     );
