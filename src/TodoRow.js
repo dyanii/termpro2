@@ -1,6 +1,4 @@
 import React from 'react';
-import Todo from './Todo';
-import AddTodo from './AddTodo';
 import { call } from "./service/ApiService"
 
 class TodoRow extends React.Component {
@@ -16,63 +14,52 @@ class TodoRow extends React.Component {
   };
 
   render() {
-    var todoRows = this.state.items.length > 0 && (
       
       <table>
         <thead></thead>
         <tbody>
+          <caption>
+            Book item table
+          </caption>
           <tr>
             <th>id</th>
             <th>title</th>
-            <th>author</th>
-            <th>publisher</th>
             <th>delete</th>
           </tr>
-          <td>
-            {this.state.items.map((item) => (
-              <Todo id={item.id} />
-            ))}
-          </td>
-          <td>
-            {this.state.items.map((item) => (
-              <Todo title={item.title} />
-            ))}
-          </td>
-          <td>
-            {this.state.items.map((item) => (
-              <Todo author={item.author} />
-            ))}
-          </td>
-          <td>
-            {this.state.items.map((item) => (
-              <Todo publisher={item.publisher} />
-            ))}
-          </td>
-          <td>
-            {this.state.items.map((item) => (
-              <Todo userId={item.userId} />
-            ))}
-          </td>
-          <td>
-            {this.state.items.map((item) => (
-              <button>
+          <tr>
+            <th>id1</th>
+            <th>book1</th>
+            <th>
+              <button onClick={this.delete}>
                 delete
-                <Todo delete={this.delete} />
               </button>
-
-            ))}
-          </td>
-        
+            </th>
+          </tr>
+          <tr>
+            <th>id2</th>
+            <th>book2</th>
+            <th>
+              <button onClick={this.delete}>
+                delete
+              </button>
+            </th>
+          </tr>
+          <tr>
+            <th>id2</th>
+            <th>book2</th>
+            <th>
+              <button onClick={this.delete}>
+                delete
+              </button>
+            </th>
+          </tr>
         </tbody>
       </table>
-          
-    );
 
 
   return (
     <div className='Todo'>
-      <AddTodo add={this.add} />
-          <div className='TodoRow'>{todoRows}</div>
+          <div className='TodoRow'></div>
     </div>
     );
   };

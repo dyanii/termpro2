@@ -52,8 +52,69 @@ class App extends React.Component {
             search={this.search}
              />
           ))}
+
         </List>
       </Paper>
+    );
+
+    var todoRows = this.state.items.length > 0 && (
+      <table>
+        <caption>Book item table</caption>
+        <thead></thead>
+        <tbody>
+          
+          <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>delete</th>
+          </tr>
+          <tr>
+            <td>4028ad35883e160401883e17327e0000</td>
+            <td>book1</td>
+            <td>
+              <button onClick={this.delete}>
+                delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>4028ad35883e160401883e17a06c0001</td>
+            <td>book2</td>
+            <td>
+              <button onClick={this.delete}>
+                delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>4028ad35883e160401883e181c9b0002</td>
+            <td>book3</td>
+            <td>
+              <button onClick={this.delete}>
+                delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>4028ad35883e160401883e18642a0003</td>
+            <td>book4</td>
+            <td>
+              <button onClick={this.delete}>
+                delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>4028ad35883e160401883e189faf0004</td>
+            <td>book5</td>
+            <td>
+              <button onClick={this.delete}>
+                delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     );
     
 
@@ -62,7 +123,10 @@ class App extends React.Component {
         <div className='App'>
         <Container maxWidth="md">
         <AddTodo add={this.add} />
-          <div className='TodoList'>{todoItems}</div>
+          <div className='TodoList'>
+            {todoItems}
+            {todoRows}
+            </div>
         </Container>
         </div>
       </div>

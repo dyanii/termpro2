@@ -7,7 +7,6 @@ class AddTodo extends React.Component {
         this.state ={ item: {title:"", author:"", publisher:"", userId:""} };
         this.add = props.add;
         this.search = props.search;
-        this.delete = props.delete;
         this.update = props.update;
     }
 
@@ -125,15 +124,6 @@ class AddTodo extends React.Component {
                         variant="outlined"
                         onChange={(e) => this.onSearchHandler(e.target.value)}>
                             제품 검색
-                        </Button>
-                    </Grid>
-                    <Grid xs={2} md={1} item>
-                        <Button
-                        fullWidth
-                        color="secondary"
-                        variant="outlined"
-                        onClick={this.deleteEventHandler}>
-                            제품 삭제
                         </Button>
                     </Grid>
                 </Grid>
