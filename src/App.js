@@ -1,21 +1,22 @@
 import React from 'react';
 import Todo from './Todo';
 import AddTodo from './AddTodo.js';
-import { Paper, List, Container } from "@material-ui/core";
+import { Paper, List, Container, Grid, Button, AppBar, Toolbar, Typography } from "@material-ui/core";
 import './App.css';
-import { call } from "./service/ApiService";
+import { call, signout } from "./service/ApiService";
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       items :[],
+      loading: true,
     };
   }
 
   componentDidMount() {
     call("/book", "GET", null).then((response)=>
-      this.setState({items: response.data}));
+      this.setState({items: response.data, loading: false}));
   }
 
   add = (item) => {
@@ -58,80 +59,72 @@ class App extends React.Component {
     );
 
     var todoRows = this.state.items.length > 0 && (
-      <table>
-        <caption>Book item table</caption>
-        <thead></thead>
-        <tbody>
-          
-          <tr>
-            <th>id</th>
-            <th>title</th>
-            <th>delete</th>
-          </tr>
-          <tr>
-            <td>4028ad35883e160401883e17327e0000</td>
-            <td>book1</td>
-            <td>
-              <button onClick={this.delete}>
-                delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>4028ad35883e160401883e17a06c0001</td>
-            <td>book2</td>
-            <td>
-              <button onClick={this.delete}>
-                delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>4028ad35883e160401883e181c9b0002</td>
-            <td>book3</td>
-            <td>
-              <button onClick={this.delete}>
-                delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>4028ad35883e160401883e18642a0003</td>
-            <td>book4</td>
-            <td>
-              <button onClick={this.delete}>
-                delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>4028ad35883e160401883e189faf0004</td>
-            <td>book5</td>
-            <td>
-              <button onClick={this.delete}>
-                delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    );
-    
-
-    return (
       <div>
-        <div className='App'>
+        <table className='custom-table'>
+          <caption>Book item List</caption>
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>title</th>
+              <th>author</th>
+              <th>userId</th>
+              <th>삭제</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.items.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.title}</td>
+                <td>{item.author}</td>
+                <td>{item.userId}</td>
+                <td><button onClick={() => this.delete(item)}>Delete</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+
+    var navigationBar = (
+      <AppBar position="static">
+        <Toolbar>
+          <Grid justify="space-between" container>
+            <Grid item>
+              <Typography variant="h6">도서 목록</Typography>
+            </Grid>
+          </Grid>
+          <Grid>
+            <Button color="inherit" onClick={signout}>
+              로그아웃
+            </Button>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    );
+
+    var todoListPage = (
+      <div>
+        {navigationBar}
         <Container maxWidth="md">
-        <AddTodo add={this.add} />
-          <div className='TodoList'>
+          <AddTodo add = {this.add} />
+          <div className="BookList">
             {todoItems}
             {todoRows}
             </div>
         </Container>
-        </div>
       </div>
-      
     );
+
+    var loadingPage = <h1>로딩중..</h1>
+
+    var content = loadingPage;
+    if (!this.state.loading) {
+      content = todoListPage;
+    }
+
+    return <div className="App">{content}</div>;
+
   }
 }
 
