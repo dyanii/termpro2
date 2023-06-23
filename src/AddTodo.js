@@ -4,10 +4,9 @@ import { TextField, Paper, Button, Grid } from "@material-ui/core";
 class AddTodo extends React.Component {
     constructor(props) {
         super(props);
-        this.state ={ item: {title:"", author:"", publisher:"", userId:""} };
+        this.state ={ item: {title:"", author:"", publisher:""} };
         this.add = props.add;
         this.search = props.search;
-        this.update = props.update;
     }
 
     onInputChange = (e) => {
@@ -27,13 +26,6 @@ class AddTodo extends React.Component {
     onInputChange2 = (e) => {
         const thisItem = this.state.item;
         thisItem.publisher = e.target.value;
-        this.setState({item: thisItem});
-        console.log(thisItem);
-    }
-
-    onInputChange3 = (e) => {
-        const thisItem = this.state.item;
-        thisItem.userId = e.target.value;
         this.setState({item: thisItem});
         console.log(thisItem);
     }
@@ -90,14 +82,6 @@ class AddTodo extends React.Component {
                         value={this.state.item.publisher}
                         onKeyPress={this.enterKeyEventHandler} />
                     </Grid>
-                    <Grid xs={11} md={11} item style={{paddingRight:16}}>
-                        <TextField 
-                        placeholder="Add userId here" 
-                        fullWidth
-                        onChange={this.onInputChange3}
-                        value={this.state.item.userId}
-                        onKeyPress={this.enterKeyEventHandler} />
-                    </Grid>
 
                     <Grid xs={1} md={1} item>
                         <Button 
@@ -106,24 +90,6 @@ class AddTodo extends React.Component {
                         variant="outlined"
                         onClick={this.onButtonClick}>
                             제품 추가
-                        </Button>
-                    </Grid>
-                    <Grid xs={2} md={1} item>
-                        <Button
-                        fullWidth
-                        color="secondary"
-                        variant="outlined"
-                        onClick={this.editEventHandler}>
-                            제품 수정
-                        </Button>
-                    </Grid>
-                    <Grid xs={2} md={1} item>
-                        <Button
-                        fullWidth
-                        color="secondary"
-                        variant="outlined"
-                        onChange={(e) => this.onSearchHandler(e.target.value)}>
-                            제품 검색
                         </Button>
                     </Grid>
                 </Grid>

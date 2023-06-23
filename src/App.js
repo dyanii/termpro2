@@ -4,6 +4,11 @@ import AddTodo from './AddTodo.js';
 import { Paper, List, Container, Grid, Button, AppBar, Toolbar, Typography } from "@material-ui/core";
 import './App.css';
 import { call, signout } from "./service/ApiService";
+import './AppTable.css';
+import UpdateTodo from './UpdateTodo';
+import DeleteTodo from './DeleteTodo';
+import SearchTodo from './SearchTodo';
+import { Tabs, Tab, Box } from '@material-ui/core';
 
 class App extends React.Component {
   constructor(props){
@@ -11,7 +16,12 @@ class App extends React.Component {
     this.state = {
       items :[],
       loading: true,
+      activeTab: ""
     };
+  }
+
+  handleChange = (event, newValue) => {
+    this.setState({ activeTab: newValue });
   }
 
   componentDidMount() {
@@ -108,6 +118,9 @@ class App extends React.Component {
         {navigationBar}
         <Container maxWidth="md">
           <AddTodo add = {this.add} />
+          <SearchTodo search = {this.search} />
+          <UpdateTodo update = {this.update} />
+          <DeleteTodo delete = {this.delete} />
           <div className="BookList">
             {todoItems}
             {todoRows}
@@ -123,8 +136,56 @@ class App extends React.Component {
       content = todoListPage;
     }
 
-    return <div className="App">{content}</div>;
-
+    const { activeTab } = this.state;
+    let additionalContent = null;
+    if (activeTab === "1") {
+      additionalContent = (
+        <div>
+          <h2>Item One</h2>
+          <p>This is the additional content for Item One.</p>
+        </div>
+      );
+    } else if (activeTab === "2") {
+      additionalContent = (
+        <div>
+          <h2>Item Two</h2>
+          <p>This is the additional content for Item Two.</p>
+        </div>
+      );
+    } else if (activeTab === "3") {
+      additionalContent = (
+        <div>
+          <h2>Item Three</h2>
+          <p>This is the additional content for Item Three.</p>
+        </div>
+      );
+    } else if (activeTab === "4") {
+      additionalContent = (
+        <div>
+          <h2>Item Four</h2>
+          <p>This is the additional content for Item Four.</p>
+        </div>
+      );
+    }
+    
+    return( 
+      <div className="App">
+        <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
+          <Tabs
+            value={this.item}
+            onChange={this.handleChange}
+            aria-label="wrapped label tabs example" centered>
+              <Tab value="one" label="제품 추가" />
+              <Tab value="two" label="제품 검색" />
+              <Tab value="three" label="제품 수정" />
+              <Tab value="four" label="제품 삭제" />
+            </Tabs>
+        </Box>
+        {additionalContent}
+        
+        {content}
+      </div>
+    );
   }
 }
 

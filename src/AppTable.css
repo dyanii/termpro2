@@ -1,0 +1,10 @@
+.custom-table {
+    border-collapse: collapse;
+    border: 1px solid blue;
+}
+
+.custom-table th,
+.custom-table td {
+    border: 1px solid blue;
+    padding: 8px;
+}
