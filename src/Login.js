@@ -64,7 +64,7 @@ class Login extends React.Component {
                             </Button>
                         </Grid>
                         <Link href="/signup" variant="body2">
-                            <Grid item>계정이 없습니까? 여기서 가입하세요.</Grid>
+                            <Grid item>계정이 없습니까? 여기서 가입하세요!</Grid>
                         </Link>
                     </Grid>
                 </form>

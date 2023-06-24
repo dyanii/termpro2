@@ -1,7 +1,8 @@
 import React from 'react';
 /*import Todo from './Todo';*/
 import AddTodo from './AddTodo.js';
-import { /*Paper, List,*/ Container, Grid, Button, AppBar, Toolbar, Typography } from "@material-ui/core";
+import { /*Paper, List,*/ Container, Grid,
+       Button, AppBar, Toolbar, Typography } from "@material-ui/core";
 import './App.css';
 import { call, signout } from "./service/ApiService";
 import './AppTable.css';
@@ -76,7 +77,6 @@ class App extends React.Component {
       </Paper>
     );
     */
-
     var todoRows = this.state.items.length > 0 && (
       <div>
         <table className='custom-table'>
