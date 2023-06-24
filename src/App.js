@@ -86,8 +86,8 @@ class App extends React.Component {
               <th>id</th>
               <th>title</th>
               <th>author</th>
-              <th>userId</th>
               <th>publisher</th>
+              <th>userId</th>
               <th>삭제</th>
             </tr>
           </thead>

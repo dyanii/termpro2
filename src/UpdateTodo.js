@@ -48,7 +48,7 @@ class UpdateTodo extends React.Component {
     editEventHandler = (e) => {
         const thisItem = this.state.item;
         thisItem.title = e.target.value;
-        this.setState({ item: thisItem.title })
+        this.setState({ item: thisItem })
         
     };
 

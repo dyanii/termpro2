@@ -4,13 +4,13 @@ import { TextField, Paper, Button, Grid } from "@material-ui/core";
 class DeleteTodo extends React.Component {
     constructor(props) {
         super(props);
-        this.state ={ item: {title:"", author:"", publisher:""} };
+        this.state ={ item: {id:"", title:"", author:"", publisher:""} };
         this.delete = props.delete;
     }
 
     onInputChange = (e) => {
         const thisItem = this.state.item;
-        thisItem.title = e.target.value;
+        thisItem.id = e.target.value;
         this.setState({item: thisItem});
         console.log(thisItem);
     }
@@ -23,8 +23,8 @@ class DeleteTodo extends React.Component {
 
     deleteEventHandler = (e) => {
         const thisItem = this.state.item;
-        thisItem.title = e.target.value;
-        if (thisItem.title === e.target.value) {
+        thisItem.id = e.target.value;
+        if (thisItem.id === e.target.value) {
             this.delete(thisItem);
         }
         this.setState({ item: thisItem });
@@ -40,7 +40,7 @@ class DeleteTodo extends React.Component {
                         placeholder="Delete title here" 
                         fullWidth
                         onChange={this.onInputChange}
-                        value={this.state.item.title}
+                        value={this.state.item.id}
                         onKeyPress={this.enterKeyEventHandler} />
                     </Grid>
                     <Grid xs={2} md={1} item>
