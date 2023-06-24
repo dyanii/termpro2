@@ -15,6 +15,11 @@ class SearchTodo extends React.Component {
         console.log(thisItem);
     }
 
+    handleSearch = (e) => {
+        this.setState({
+            [e.target.title]: e.target.value,
+        });
+    };
 
     onSearchHandler = (e) => {
         const thisItem = this.state.item;
@@ -26,10 +31,9 @@ class SearchTodo extends React.Component {
 
     enterKeyEventHandler = (e) => {
         if (e.key === 'Enter'){
-            this.onButtonClick();
+            this.onSearchHandler();
         }
     }
-
 
     render() {
         return (
@@ -37,7 +41,7 @@ class SearchTodo extends React.Component {
                 <Grid container>
                     <Grid xs={11} md={11} item style={{paddingRight:16}}>
                         <TextField 
-                        placeholder="Add title here" 
+                        placeholder="Search title here" 
                         fullWidth
                         onChange={this.onInputChange}
                         value={this.state.item.title}

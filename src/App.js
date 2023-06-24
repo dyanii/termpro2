@@ -1,7 +1,7 @@
 import React from 'react';
-import Todo from './Todo';
+/*import Todo from './Todo';*/
 import AddTodo from './AddTodo.js';
-import { Paper, List, Container, Grid, Button, AppBar, Toolbar, Typography } from "@material-ui/core";
+import { /*Paper, List,*/ Container, Grid, Button, AppBar, Toolbar, Typography } from "@material-ui/core";
 import './App.css';
 import { call, signout } from "./service/ApiService";
 import './AppTable.css';
@@ -16,12 +16,19 @@ class App extends React.Component {
     this.state = {
       items :[],
       loading: true,
-      activeTab: ""
+      value: 0,
+    };
+  }
+
+  a11yProps = (index) => {
+    return {
+      id: `imple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
     };
   }
 
   handleChange = (event, newValue) => {
-    this.setState({ activeTab: newValue });
+    this.setState({ value: newValue });
   }
 
   componentDidMount() {
@@ -51,6 +58,7 @@ class App extends React.Component {
 
 
   render() {
+    /*
     var todoItems = this.state.items.length > 0 && (
       <Paper style={{margin:16}}>
         <List>
@@ -67,6 +75,7 @@ class App extends React.Component {
         </List>
       </Paper>
     );
+    */
 
     var todoRows = this.state.items.length > 0 && (
       <div>
@@ -78,6 +87,7 @@ class App extends React.Component {
               <th>title</th>
               <th>author</th>
               <th>userId</th>
+              <th>publisher</th>
               <th>삭제</th>
             </tr>
           </thead>
@@ -87,6 +97,7 @@ class App extends React.Component {
                 <td>{item.id}</td>
                 <td>{item.title}</td>
                 <td>{item.author}</td>
+                <td>{item.publisher}</td>
                 <td>{item.userId}</td>
                 <td><button onClick={() => this.delete(item)}>Delete</button></td>
               </tr>
@@ -101,7 +112,7 @@ class App extends React.Component {
         <Toolbar>
           <Grid justify="space-between" container>
             <Grid item>
-              <Typography variant="h6">도서 목록</Typography>
+              <Typography variant="h6">나의 도서 목록</Typography>
             </Grid>
           </Grid>
           <Grid>
@@ -117,13 +128,8 @@ class App extends React.Component {
       <div>
         {navigationBar}
         <Container maxWidth="md">
-          <AddTodo add = {this.add} />
-          <SearchTodo search = {this.search} />
-          <UpdateTodo update = {this.update} />
-          <DeleteTodo delete = {this.delete} />
           <div className="BookList">
-            {todoItems}
-            {todoRows}
+            
             </div>
         </Container>
       </div>
@@ -135,56 +141,52 @@ class App extends React.Component {
     if (!this.state.loading) {
       content = todoListPage;
     }
-
-    const { activeTab } = this.state;
-    let additionalContent = null;
-    if (activeTab === "1") {
-      additionalContent = (
-        <div>
-          <h2>Item One</h2>
-          <p>This is the additional content for Item One.</p>
-        </div>
-      );
-    } else if (activeTab === "2") {
-      additionalContent = (
-        <div>
-          <h2>Item Two</h2>
-          <p>This is the additional content for Item Two.</p>
-        </div>
-      );
-    } else if (activeTab === "3") {
-      additionalContent = (
-        <div>
-          <h2>Item Three</h2>
-          <p>This is the additional content for Item Three.</p>
-        </div>
-      );
-    } else if (activeTab === "4") {
-      additionalContent = (
-        <div>
-          <h2>Item Four</h2>
-          <p>This is the additional content for Item Four.</p>
-        </div>
-      );
-    }
     
     return( 
       <div className="App">
-        <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
+        {content}
+        <AppBar position='static'>
           <Tabs
             value={this.item}
             onChange={this.handleChange}
-            aria-label="wrapped label tabs example" centered>
-              <Tab value="one" label="제품 추가" />
-              <Tab value="two" label="제품 검색" />
-              <Tab value="three" label="제품 수정" />
-              <Tab value="four" label="제품 삭제" />
+            aria-label="simple tabs example" centered>
+              <Tab label="제품 추가" {...this.a11yProps(0)} />
+              <Tab label="제품 검색" {...this.a11yProps(1)} />
+              <Tab label="제품 수정" {...this.a11yProps(2)} />
+              <Tab label="제품 삭제" {...this.a11yProps(3)} />
             </Tabs>
-        </Box>
-        {additionalContent}
-        
-        {content}
+        </AppBar>
+        <TabPanel value={this.state.value} index={0}>
+          제품을 추가합니다
+          <AddTodo add={this.add} />
+          {todoRows}
+        </TabPanel>
+        <TabPanel value={this.state.value} index={1}>
+          제품을 검색합니다
+          <SearchTodo search={this.search} />
+          {todoRows}
+        </TabPanel>
+        <TabPanel value={this.state.value} index={2}>
+          제품을 수정합니다
+          <UpdateTodo update={this.update} />
+          {todoRows}
+        </TabPanel>
+        <TabPanel value={this.state.value} index={3}>
+          제품을 삭제합니다
+          <DeleteTodo delete={this.delete} />
+          {todoRows}
+        </TabPanel>
       </div>
+    );
+  }
+}
+
+class TabPanel extends React.Component {
+  render() {
+    return (
+      <Typography component="div" hidden={this.props.value !== this.props.index}>
+        <Box p={3}>{this.props.children}</Box>
+      </Typography>
     );
   }
 }

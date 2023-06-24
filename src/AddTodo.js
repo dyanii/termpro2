@@ -6,7 +6,6 @@ class AddTodo extends React.Component {
         super(props);
         this.state ={ item: {title:"", author:"", publisher:""} };
         this.add = props.add;
-        this.search = props.search;
     }
 
     onInputChange = (e) => {
@@ -56,7 +55,7 @@ class AddTodo extends React.Component {
 
     render() {
         return (
-            <Paper style={{margin:16, padding:16 }}>
+            <Paper style={{margin:20, padding:16 }}>
                 <Grid container>
                     <Grid xs={11} md={11} item style={{paddingRight:16}}>
                         <TextField 
