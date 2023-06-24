@@ -33,25 +33,12 @@ class AddTodo extends React.Component {
         this.add(this.state.item);
         this.setState({item: {title: "", author:"", publisher:"", userId:""}});
     }
-
-    onSearchHandler = (searchText) => {
-        const searchItem = { title: searchText };
-        this.search(searchItem);
-    };
     
-
     enterKeyEventHandler = (e) => {
         if (e.key === 'Enter'){
             this.onButtonClick();
         }
     }
-
-    editEventHandler = (e) => {
-        const thisItem = this.state.item;
-        thisItem.title = e.target.value;
-        this.setState({ item: thisItem })
-        
-    };
 
     render() {
         return (

@@ -6,28 +6,23 @@ class UpdateTodo extends React.Component {
         super(props);
         this.state ={ item: {title:"", author:"", publisher:""} };
         this.update = props.update;
-        this.inputFormHandler = this.inputFormHandler.bind(this);
     }
 
-    inputFormHandler(e) {
-        this.setState({ [e.target.title]: e.target.value });
-    }
-
-    onInputChange = (e) => {
+    onUpdate = (e) => {
         const thisItem = this.state.item;
         thisItem.title = e.target.value;
         this.setState({ [e.target.title]: e.target.value });
         console.log(thisItem);
     }
 
-    onInputChange1 = (e) => {
+    onUpdate1 = (e) => {
         const thisItem = this.state.item;
         thisItem.author = e.target.value;
         this.setState({ [e.target.author]: e.target.value });
         console.log(thisItem);
     }
 
-    onInputChange2 = (e) => {
+    onUpdate2 = (e) => {
         const thisItem = this.state.item;
         thisItem.publisher = e.target.value;
         this.setState({ [e.target.publisher]: e.target.value });
@@ -45,13 +40,6 @@ class UpdateTodo extends React.Component {
         }
     }
 
-    editEventHandler = (e) => {
-        const thisItem = this.state.item;
-        thisItem.title = e.target.value;
-        this.setState({ item: thisItem })
-        
-    };
-
     render() {
         return (
             <Paper style={{margin:16, padding:16 }}>
@@ -60,7 +48,7 @@ class UpdateTodo extends React.Component {
                         <TextField 
                         placeholder="Update title here" 
                         fullWidth
-                        onChange={this.editEventHandler}
+                        onChange={this.onUpdate}
                         value={this.state.item.title}
                         onKeyPress={this.enterKeyEventHandler}
                         />
@@ -69,7 +57,7 @@ class UpdateTodo extends React.Component {
                         <TextField 
                         placeholder="Update author here" 
                         fullWidth
-                        onChange={this.onInputChange1}
+                        onChange={this.onUpdate1}
                         value={this.state.item.author}
                         onKeyPress={this.enterKeyEventHandler} />
                     </Grid>
@@ -77,7 +65,7 @@ class UpdateTodo extends React.Component {
                         <TextField 
                         placeholder="Update publisher here" 
                         fullWidth
-                        onChange={this.onInputChange2}
+                        onChange={this.onUpdate2}
                         value={this.state.item.publisher}
                         onKeyPress={this.enterKeyEventHandler} />
                     </Grid>
