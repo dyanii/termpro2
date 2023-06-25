@@ -15,16 +15,13 @@ class SearchTodo extends React.Component {
         console.log(thisItem);
     }
 
-    handleSearch = (e) => {
-        this.setState({
-            [e.target.title]: e.target.value,
-        });
-    };
-
     onSearchHandler = (e) => {
         const thisItem = this.state.item;
         thisItem.title = e.target.value;
-        this.search(this.state.item);
+        if (thisItem.title === e.target.value) {
+            this.search(thisItem);
+        }
+        this.setState({ [e.target.title]: e.target.value });
         console.log(thisItem);
     };
     
